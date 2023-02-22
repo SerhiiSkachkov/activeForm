@@ -1,0 +1,91 @@
+{
+  "name": "polar-ui",
+  "version": "1.0.0",
+  "private": true,
+  "homepage": "/",
+  "dependencies": {
+    "@material-ui/core": "4.11.4",
+    "@material-ui/icons": "4.11.2",
+    "formik": "2.2.8",
+    "history": "4.10.1",
+    "http-proxy-middleware": "^2.0.0",
+    "moment": "2.29.1",
+    "react": "17.0.2",
+    "react-compare-slider": "^2.0.2",
+    "react-dom": "17.0.2",
+    "react-dropzone": "11.3.2",
+    "react-hook-form": "^7.43.1",
+    "react-notifications-component": "3.1.0",
+    "react-player": "^2.9.0",
+    "react-redux": "7.2.4",
+    "react-router-dom": "5.2.0",
+    "react-scripts": "4.0.3",
+    "react-scroll": "^1.8.2",
+    "redux": "4.1.0",
+    "redux-thunk": "2.3.0",
+    "screenfull": "^5.1.0",
+    "worker-loader": "3.0.8"
+  },
+  "devDependencies": {
+    "@types/node": "15.6.2",
+    "@types/react": "17.0.9",
+    "@types/react-dom": "17.0.6",
+    "@types/react-redux": "7.1.16",
+    "@types/react-router": "5.1.14",
+    "@types/react-router-dom": "5.1.7",
+    "@typescript-eslint/eslint-plugin": "4.26.0",
+    "@typescript-eslint/parser": "4.26.0",
+    "eslint-config-airbnb": "18.2.1",
+    "eslint-config-airbnb-typescript": "12.3.1",
+    "eslint-config-prettier": "8.3.0",
+    "eslint-config-react-app": "6.0.0",
+    "eslint-config-standard": "16.0.3",
+    "eslint-import-resolver-typescript": "2.4.0",
+    "eslint-plugin-babel": "5.3.1",
+    "eslint-plugin-flowtype": "5.7.2",
+    "eslint-plugin-import": "2.23.4",
+    "eslint-plugin-jest": "24.3.6",
+    "eslint-plugin-jsx-a11y": "6.4.1",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-prettier": "3.4.0",
+    "eslint-plugin-promise": "5.1.0",
+    "eslint-plugin-react": "7.24.0",
+    "eslint-plugin-react-hooks": "4.2.0",
+    "eslint-plugin-standard": "5.0.0",
+    "husky": "^3.1.0",
+    "lint-staged": "11.0.0",
+    "node-sass": "6.0.0",
+    "prettier": "2.3.0",
+    "typescript": "4.3.2"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --ext .ts,.tsx src",
+    "lint:fix": "yarn lint --fix",
+    "format": "prettier \"src/**/*.{js,jsx,yml,yaml,ts,tsx,md,graphql,mdx}\" --write",
+    "precommit": "lint-staged"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn precommit"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
