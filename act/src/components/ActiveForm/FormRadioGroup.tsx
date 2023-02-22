@@ -45,7 +45,8 @@ export const FormRadioGroup: FC<FormRadioGroupProps> = ({ options, control }) =>
       <FormLabel htmlFor={alias}>{alias}</FormLabel>
       <Controller
         name={alias}
-        rules={{ required: isRequired && 'Is required'}}
+        defaultValue=""
+        rules={{ required: isRequired && 'Is required' }}
         control={control}
         render={({ field, fieldState: { error } }) => (
           <>

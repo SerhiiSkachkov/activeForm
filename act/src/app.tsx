@@ -9,7 +9,7 @@ const App: FC = () => {
     <Container>
       <BrowserRouter>
         <Switch>
-          <Route exact path="/template" component={Template}></Route>
+          <Route exact path="/" component={Template}></Route>
           <Route exact path="/decorated" component={Decorate}></Route>
         </Switch>
       </BrowserRouter>

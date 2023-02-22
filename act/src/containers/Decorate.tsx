@@ -12,7 +12,11 @@ const fakeRequestTemplate = url => {
 const handleDecoratedValues = obj => {
   let data = obj['_data']['_decorated'];
   return data.reduce((acc, item) => {
-    acc[item._name] = item._value;
+    if (typeof item._value === 'object') {
+      acc[item._name] = item._value._manifest;
+    } else {
+      acc[item._name] = item._value;
+    }
     return acc;
   }, {});
 };
@@ -33,5 +37,6 @@ export const Decorate: FC = () => {
 
   if (!template || !defaultValues) return null;
 
+  console.log(defaultValues);
   return <ActiveForm template={template._template} defaultFormValues={defaultValues} />;
 };

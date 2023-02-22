@@ -1,9 +1,10 @@
 import { FC } from 'react';
-import { Field, FieldValues, useForm } from 'react-hook-form';
+import { FieldValues, useForm } from 'react-hook-form';
 import { Card, Box, Button } from '@material-ui/core';
 import { FormInput } from 'components/ActiveForm/FormInput';
 import { FormSelect } from 'components/ActiveForm/FormSelect';
 import { FormRadioGroup } from 'components/ActiveForm/FormRadioGroup';
+import { Title } from 'components/Title';
 import { FieldVariantsEnum } from 'types';
 
 interface ActiveFormProps {
@@ -38,6 +39,7 @@ const ActiveForm: FC<ActiveFormProps> = ({ template, templateLink, defaultFormVa
   return (
     <Box component={Card} width="600px" mx={'auto'} p={3}>
       <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
+        <Title />
         {FormFields()}
         <Button variant="contained" color="primary" type="submit" size="large">
           send

@@ -21,20 +21,12 @@ interface MenuOptionsKey {
 }
 const menuOptions: MenuOptionsKey[] = [
   {
-    label: 'Oliver Hansen',
-    value: 'Oliver Hansen',
+    label: 'Contract',
+    value: 'Contract',
   },
   {
-    label: 'Omar Alexander',
-    value: 'Omar Alexander',
-  },
-  {
-    label: 'Virginia Andrews',
-    value: 'Virginia Andrews',
-  },
-  {
-    label: 'April Tucke',
-    value: 'April Tucke',
+    label: 'B2B_Service',
+    value: 'B2B_Service',
   },
 ];
 
@@ -77,7 +69,7 @@ export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
         rules={{ required: isRequired && 'Is required' }}
         render={({ field, fieldState: { error } }) => (
           <>
-            <Select {...field} multiple={isMultiple} defaultValue={isMultiple ? [] : ''}>
+            <Select {...field} multiple={isMultiple}>
               {generateSingleOptions()}
             </Select>
             {error && <FormHelperText error>{error.message}</FormHelperText>}

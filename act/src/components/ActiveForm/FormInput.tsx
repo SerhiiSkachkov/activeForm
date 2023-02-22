@@ -12,7 +12,7 @@ interface FormInputProps {
 
 export const FormInput: FC<FormInputProps> = ({ options, control, setValue }) => {
   const { alias, type, required, editable } = options;
-  
+
   const isDisabled = parsIsFalse(editable);
   const isRequired = parsIsTrue(required);
 
