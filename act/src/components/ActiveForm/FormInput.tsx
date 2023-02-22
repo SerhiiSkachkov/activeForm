@@ -12,7 +12,7 @@ interface FormInputProps {
 
 export const FormInput: FC<FormInputProps> = ({ options, control, setValue }) => {
   const { alias, type, required, editable } = options;
-  console.log(type === FieldVariantsEnum.FLOAT);
+  
   const isDisabled = parsIsFalse(editable);
   const isRequired = parsIsTrue(required);
 
@@ -27,7 +27,6 @@ export const FormInput: FC<FormInputProps> = ({ options, control, setValue }) =>
       if (currentValue === '.') currentValue = '0.';
       currentValue = currentValue.replace(/[^\d.]|\.(?=.*\.)/g, '');
     }
-    console.log(currentValue);
     return setValue(alias, currentValue);
   };
 
