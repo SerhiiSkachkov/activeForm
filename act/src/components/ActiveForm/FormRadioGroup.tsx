@@ -1,5 +1,5 @@
 import { FC } from 'react';
-import { Controller } from 'react-hook-form';
+import { Controller, Control, FieldValues } from 'react-hook-form';
 import {
   Radio,
   RadioGroup,
@@ -10,11 +10,16 @@ import {
   makeStyles,
 } from '@material-ui/core';
 import { parsIsTrue, parsIsFalse } from 'helpers/parse';
+import { BaseOptionFieldValues } from 'types';
 
-interface FormRadioGroupProps {
-  options: any;
-  control: any;
-}
+type FormRadioGroupProps = {
+  options: BaseOptionFieldValues & {
+    alias: string;
+    hrn: string;
+    enums: Record<number, { alias: string }>;
+  };
+  control: Control<FieldValues>;
+};
 const useStyles = makeStyles(() => ({
   formGroup: {
     display: 'flex',
@@ -27,10 +32,10 @@ export const FormRadioGroup: FC<FormRadioGroupProps> = ({ options, control }) =>
   const { alias, editable, required, enums } = options;
 
   const isDisabled = parsIsFalse(editable);
-  const isRequired = parsIsTrue(required) && 'Is required';
+  const isRequired = parsIsTrue(required);
 
   const generateSingleOptions = () => {
-    return Object.values<{ alias: string }>(enums).map(({ alias }) => (
+    return Object.values(enums).map(({ alias }) => (
       <FormControlLabel key={alias} label={alias} value={alias} control={<Radio />} />
     ));
   };
@@ -40,7 +45,7 @@ export const FormRadioGroup: FC<FormRadioGroupProps> = ({ options, control }) =>
       <FormLabel htmlFor={alias}>{alias}</FormLabel>
       <Controller
         name={alias}
-        rules={{ required: isRequired }}
+        rules={{ required: isRequired && 'Is required'}}
         control={control}
         render={({ field, fieldState: { error } }) => (
           <>

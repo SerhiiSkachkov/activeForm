@@ -1,34 +1,55 @@
 import { FC, useCallback, useEffect, useState } from 'react';
-import { Controller, UseFormReturn, UseFormSetValue } from 'react-hook-form';
+import { Controller, Control, FieldValues } from 'react-hook-form';
 import { InputLabel, MenuItem, FormControl, Select, FormHelperText } from '@material-ui/core';
+import { fetchApi } from 'api';
 import { parsIsTrue, parsIsFalse } from 'helpers/parse';
+import { PytonBooleanValues, BaseOptionFieldValues } from 'types';
 
-interface FormSelectProps {
-  options: any;
-  control: any;
+type FormSelectProps = {
+  options: BaseOptionFieldValues & {
+    depends: PytonBooleanValues;
+    hrn: string;
+    _link: string;
+    behivor: Record<number, string>;
+  };
+  control: Control<FieldValues>;
+};
+
+interface MenuOptionsKey {
+  label: string;
+  value: string;
 }
-
-const menuOptions: string[] = [
-  'Oliver Hansen',
-  'Van Henry',
-  'April Tucker',
-  'Ralph Hubbard',
-  'Omar Alexander',
-  'Carlos Abbott',
-  'Miriam Wagner',
-  'Bradley Wilkerson',
-  'Virginia Andrews',
-  'Kelly Snyder',
+const menuOptions: MenuOptionsKey[] = [
+  {
+    label: 'Oliver Hansen',
+    value: 'Oliver Hansen',
+  },
+  {
+    label: 'Omar Alexander',
+    value: 'Omar Alexander',
+  },
+  {
+    label: 'Virginia Andrews',
+    value: 'Virginia Andrews',
+  },
+  {
+    label: 'April Tucke',
+    value: 'April Tucke',
+  },
 ];
 
 export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
-  const { alias, multiple, required, editable, _link } = options;
+  const { alias, multiple, required, editable, _link, depends } = options;
 
-  const [selectOption, setSelectOptions] = useState<any[]>([]);
+  const [selectOption, setSelectOptions] = useState<MenuOptionsKey[]>(menuOptions);
+  // Api doesn't work
+  // It will work api
 
   // const getOptions = useCallback(() => {
-  //   return fetchApi(_link, {}).then(setSelectOptions);
-  // }, [_link]);
+  //   if (parsIsTrue(depends)) {
+  //     return fetchApi(_link, {}).then(setSelectOptions);
+  //   }
+  // }, [_link, depends]);
 
   // useEffect(() => {
   //   getOptions();
@@ -36,12 +57,12 @@ export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
 
   const isDisabled = parsIsFalse(editable);
   const isMultiple = parsIsTrue(multiple);
-  const isRequired = parsIsTrue(required) && 'Is required';
+  const isRequired = parsIsTrue(required);
 
   const generateSingleOptions = () => {
-    return menuOptions.map(el => (
-      <MenuItem key={el} value={el}>
-        {el}
+    return selectOption.map(({ label, value }) => (
+      <MenuItem key={value} value={value}>
+        {label}
       </MenuItem>
     ));
   };
@@ -53,7 +74,7 @@ export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
         name={alias}
         control={control}
         defaultValue={isMultiple ? [] : ''}
-        rules={{ required: isRequired }}
+        rules={{ required: isRequired && 'Is required' }}
         render={({ field, fieldState: { error } }) => (
           <>
             <Select {...field} multiple={isMultiple} defaultValue={isMultiple ? [] : ''}>
