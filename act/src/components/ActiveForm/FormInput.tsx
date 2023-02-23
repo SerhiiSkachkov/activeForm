@@ -1,7 +1,7 @@
 import { FC } from 'react';
 import { Controller, UseFormSetValue, FieldValues, Control } from 'react-hook-form';
 import { TextField } from '@material-ui/core';
-import { parsIsFalse, parsIsTrue } from 'helpers/parse';
+import { parseToBool } from 'helpers/parse';
 import { BaseOptionFieldValues, FieldVariantsEnum } from 'types';
 
 interface FormInputProps {
@@ -13,8 +13,8 @@ interface FormInputProps {
 export const FormInput: FC<FormInputProps> = ({ options, control, setValue }) => {
   const { alias, type, required, editable } = options;
 
-  const isDisabled = parsIsFalse(editable);
-  const isRequired = parsIsTrue(required);
+  const isDisabled = parseToBool(editable);
+  const isRequired = parseToBool(required);
 
   const handleChangeValue = (e: React.ChangeEvent<HTMLInputElement>): void => {
     let currentValue = e.target.value;

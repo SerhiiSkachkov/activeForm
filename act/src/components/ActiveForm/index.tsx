@@ -4,22 +4,25 @@ import { Card, Box, Button } from '@material-ui/core';
 import { FormInput } from 'components/ActiveForm/FormInput';
 import { FormSelect } from 'components/ActiveForm/FormSelect';
 import { FormRadioGroup } from 'components/ActiveForm/FormRadioGroup';
-import { Title } from 'components/Title';
 import { FieldVariantsEnum } from 'types';
 
 interface ActiveFormProps {
   template?: any;
-  templateLink?: any;
   defaultFormValues?: any;
+  onSubmitValue: React.Dispatch<React.SetStateAction<{}>>;
 }
 
-const ActiveForm: FC<ActiveFormProps> = ({ template, templateLink, defaultFormValues = {} }) => {
+export const ActiveForm: FC<ActiveFormProps> = ({
+  template,
+  defaultFormValues = {},
+  onSubmitValue,
+}) => {
   const { control, handleSubmit, setValue } = useForm<FieldValues>({
     defaultValues: defaultFormValues,
   });
   const { _fields } = template[0];
 
-  const onSubmit = (data: any) => console.log(data);
+  const onSubmithandler = data => onSubmitValue(data);
 
   const FormFields = () => {
     return _fields.map(field => {
@@ -37,16 +40,13 @@ const ActiveForm: FC<ActiveFormProps> = ({ template, templateLink, defaultFormVa
   };
 
   return (
-    <Box component={Card} width="600px" mx={'auto'} p={3}>
-      <form onSubmit={handleSubmit(onSubmit)} autoComplete="off">
-        <Title />
+    <Box component={Card} p={3}>
+      <form onSubmit={handleSubmit(onSubmithandler)} autoComplete="off">
         {FormFields()}
-        <Button variant="contained" color="primary" type="submit" size="large">
+        <Button variant="contained" color="primary" type="submit" size="large" fullWidth>
           send
         </Button>
       </form>
     </Box>
   );
 };
-
-export default ActiveForm;

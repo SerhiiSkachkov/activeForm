@@ -9,7 +9,7 @@ import {
   FormHelperText,
   makeStyles,
 } from '@material-ui/core';
-import { parsIsTrue, parsIsFalse } from 'helpers/parse';
+import { parseToBool } from 'helpers/parse';
 import { BaseOptionFieldValues } from 'types';
 
 type FormRadioGroupProps = {
@@ -20,6 +20,7 @@ type FormRadioGroupProps = {
   };
   control: Control<FieldValues>;
 };
+
 const useStyles = makeStyles(() => ({
   formGroup: {
     display: 'flex',
@@ -31,8 +32,8 @@ export const FormRadioGroup: FC<FormRadioGroupProps> = ({ options, control }) =>
   const classes = useStyles();
   const { alias, editable, required, enums } = options;
 
-  const isDisabled = parsIsFalse(editable);
-  const isRequired = parsIsTrue(required);
+  const isDisabled = parseToBool(editable);
+  const isRequired = parseToBool(required);
 
   const generateSingleOptions = () => {
     return Object.values(enums).map(({ alias }) => (
@@ -41,7 +42,7 @@ export const FormRadioGroup: FC<FormRadioGroupProps> = ({ options, control }) =>
   };
 
   return (
-    <FormControl fullWidth variant="outlined" margin="normal" disabled={isDisabled}>
+    <FormControl fullWidth variant="outlined" margin="normal" disabled={!isDisabled}>
       <FormLabel htmlFor={alias}>{alias}</FormLabel>
       <Controller
         name={alias}

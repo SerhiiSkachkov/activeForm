@@ -1,2 +1,1 @@
-export const parsIsTrue = str => str === "True";
-export const parsIsFalse = str => str === "False";
+export const parseToBool = (str: string) => (str === 'True' ? true : false);

@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { Controller, Control, FieldValues } from 'react-hook-form';
 import { InputLabel, MenuItem, FormControl, Select, FormHelperText } from '@material-ui/core';
 import { fetchApi } from 'api';
-import { parsIsTrue, parsIsFalse } from 'helpers/parse';
+import { parseToBool } from 'helpers/parse';
 import { PytonBooleanValues, BaseOptionFieldValues } from 'types';
 
 type FormSelectProps = {
@@ -19,6 +19,7 @@ interface MenuOptionsKey {
   label: string;
   value: string;
 }
+
 const menuOptions: MenuOptionsKey[] = [
   {
     label: 'Contract',
@@ -34,11 +35,12 @@ export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
   const { alias, multiple, required, editable, _link, depends } = options;
 
   const [selectOption, setSelectOptions] = useState<MenuOptionsKey[]>(menuOptions);
+
   // Api doesn't work
   // It will work api
 
   // const getOptions = useCallback(() => {
-  //   if (parsIsTrue(depends)) {
+  //   if (parseToBool(depends)) {
   //     return fetchApi(_link, {}).then(setSelectOptions);
   //   }
   // }, [_link, depends]);
@@ -47,9 +49,9 @@ export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
   //   getOptions();
   // }, [getOptions]);
 
-  const isDisabled = parsIsFalse(editable);
-  const isMultiple = parsIsTrue(multiple);
-  const isRequired = parsIsTrue(required);
+  const isDisabled = parseToBool(editable);
+  const isMultiple = parseToBool(multiple);
+  const isRequired = parseToBool(required);
 
   const generateSingleOptions = () => {
     return selectOption.map(({ label, value }) => (
@@ -60,7 +62,7 @@ export const FormSelect: FC<FormSelectProps> = ({ options, control }) => {
   };
 
   return (
-    <FormControl fullWidth variant="outlined" margin="normal" disabled={isDisabled}>
+    <FormControl fullWidth variant="outlined" margin="normal" disabled={!isDisabled}>
       <InputLabel htmlFor={alias}>{alias}</InputLabel>
       <Controller
         name={alias}

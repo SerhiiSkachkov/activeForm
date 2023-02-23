@@ -9,5 +9,9 @@ export const Title: FC = () => {
     '/': 'Template',
     '/decorated': 'Decorated',
   };
-  return <Typography variant="h3">{titleList[pathname]}</Typography>;
+  return (
+    <Typography variant="h3" component={'div'}>
+      {titleList[pathname]}
+    </Typography>
+  );
 };
